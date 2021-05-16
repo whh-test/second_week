@@ -1,0 +1,27 @@
+package com.learn;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.util.EntityUtils;
+
+public class HttpClientTest {
+
+    public static void main(String[] args) {
+        HttpClient httpClient = httpClientFactoryBean.getObject();
+        // 根据URL创建HttpPost实例
+        HttpPost post = new HttpPost(" http://localhost:8801");
+
+        // 发送请求，得到响应体
+        HttpResponse response = httpClient.execute(post);
+
+        // 判断是否正常返回
+        if (response.getStatusLine().getStatusCode() == 200) {
+            // 解析数据
+            HttpEntity resEntity = response.getEntity();
+            EntityUtils.toString(resEntity);
+        }
+    }
+}
